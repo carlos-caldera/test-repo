@@ -1,0 +1,9 @@
+name: Test status check
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  check:
+    runs-on: apline-latest
+    steps:
+      - run: echo "Testing status check"
