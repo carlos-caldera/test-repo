@@ -1,0 +1,30 @@
+name: Test ego-ops workflow
+on:
+  repository_dispatch:
+    types:
+      - update-all
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TEST_CONTAINER_NAME: ego-ops-workflow
+      TEST_CONTAINER_TAG: test
+    steps:
+      # https://github.com/actions/checkout/issues/211#issuecomment-611986243
+      - name: Reset Working Dir Perms (container/non-container issues)
+        run: |
+          if [ -d "${{ github.workspace }}" ]; then
+            sudo chown -R $USER:$USER ${{ github.workspace }}
+          fi
+      - uses: actions/checkout@v3.0.2
+        with:
+          ref: ${{ env.pl_mergeToBranch }}
+      - name: Run ego-ops workflow container
+        run: |
+          ${GITHUB_WORKSPACE}/.github/scripts/run-workflow-container.sh ${{ env.TEST_CONTAINER_NAME }}:${{ env.TEST_CONTAINER_TAG }}
+        env:
+          BRANCH_NAME: "gha/test-branch"
+          COMMIT_MESSAGE: "Automated GHA commit"
+          GITHUB_USER_NAME: "Carlos Caldera"
+          GITHUB_USER_EMAIL: "carlos.caldera@starburstdata.com"
