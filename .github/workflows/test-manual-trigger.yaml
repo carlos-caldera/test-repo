@@ -2,14 +2,17 @@ name: Test manual workflow
 on:
   workflow_dispatch:
     inputs:
-      var_one:
-        required: true
-      var_two:
+      repo_dispatch_payload:
         required: true
 
 jobs:
   test-job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ toJson(inputs) }}"
-      - run: printenv
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.TEST_GITHUB_TOKEN }}
+          event-type: update-all
+          repository: carlos-caldera/test-repo
+          client-payload: '{ "body": "${{inputs.repo_dispatch_payload}}"}'
