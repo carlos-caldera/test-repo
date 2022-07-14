@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: billing-report-generator
+  namespace: deploy
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: ego-deploy
+  source:
+    repoURL: https://github.com/starburstdata/stargate.git
+    targetRevision: 8d3b6724b1395c8f8960b92df5ba5e1354a877b2
+    path: charts/billing-report-generator
+    helm:
+      parameters:
+        - name: imageTag
+          value: stargate-3620-g8d3b6724b
+      valueFiles:
+        - secrets://https://${GITHUB_TOKEN}@raw.githubusercontent.com/starburstdata/ego-ops/main/billing-report-generator/dev/_base/values.yml?uniq=aef52d8a-45d7-4be3-82e9-d35868b4cde1
+        - secrets://https://${GITHUB_TOKEN}@raw.githubusercontent.com/starburstdata/ego-ops/main/billing-report-generator/dev/_base/secrets/auth.yml?uniq=F3E45612-00DB-48EB-9E44-37B41AE7F96D
+  destination:
+    name: control-plane
+    namespace: billing-report-generator
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: "application.yml"
+    encrypted_regex: "^(value)$"
+    kms: "arn:aws:kms:us-east-2:662260526581:key/3f226811-712c-49d1-a5b7-de59223ec1cb"
