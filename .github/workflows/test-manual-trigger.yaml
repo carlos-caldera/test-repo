@@ -1,0 +1,15 @@
+name: Test manual workflow
+on:
+  workflow_dispatch:
+    inputs:
+      var_one:
+        required: true
+      var_two:
+        required: true
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ toJson(inputs) }}"
+      - run: printenv
