@@ -4,6 +4,6 @@ on:
     branches: [main]
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
     steps:
       - run: echo "Testing status check"
