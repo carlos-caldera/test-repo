@@ -14,12 +14,12 @@ spec:
   project: ego-deploy
   source:
     repoURL: https://github.com/starburstdata/stargate.git
-    targetRevision: 8d3b6724b1395c8f8960b92df5ba5e1354a877b2
+    targetRevision: TEST_SHA
     path: charts/portal
     helm:
       parameters:
         - name: image.tag
-          value: stargate-3620-g8d3b6724b
+          value: TEST_TAG
         - name: deployment.region
           value: us-east-1
       valueFiles:
