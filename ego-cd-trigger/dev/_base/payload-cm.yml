@@ -14,8 +14,8 @@ data:
         "parameters": [
           "environment=dev",
           "domain=galaxy-dev.io",
-          "image-tag=stargate-3620-g8d3b6724b",
-          "git-sha=8d3b6724b1395c8f8960b92df5ba5e1354a877b2"
+          "image-tag=TEST_TAG",
+          "git-sha=TEST_SHA"
         ]
       }
     }

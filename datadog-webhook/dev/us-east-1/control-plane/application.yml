@@ -9,12 +9,12 @@ spec:
   project: ego-deploy
   source:
     repoURL: https://github.com/starburstdata/stargate.git
-    targetRevision: 8d3b6724b1395c8f8960b92df5ba5e1354a877b2
+    targetRevision: TEST_SHA
     path: charts/datadog-webhook
     helm:
       parameters:
         - name: imageTag
-          value: stargate-3620-g8d3b6724b
+          value: TEST_TAG
       valueFiles:
         - secrets://https://${GITHUB_TOKEN}@raw.githubusercontent.com/starburstdata/ego-ops/main/datadog-webhook/dev/_base/values.yml?uniq=0F0380BE-2B8A-49D0-8463-4B2A6F985165
   destination:
