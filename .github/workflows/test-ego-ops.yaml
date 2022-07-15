@@ -50,15 +50,13 @@ jobs:
           -e GITHUB_ACTION="${{ github.event.action }}" \
           -e IMAGE_TAG="${{ env.pl_imageTag }}" \
           -e AWS_ACCESS_KEY -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
-          -e GITHUB_EMAIL -e GITHUB_REPOSITORY -e GITHUB_TOKEN -e GITHUB_USER \
+          -e GITHUB_REPOSITORY -e GITHUB_TOKEN \
           662260526581.dkr.ecr.us-east-2.amazonaws.com/${{ env.CONTAINER_NAME }}:${{ env.CONTAINER_TAG }}
         env:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.TEST_GITHUB_TOKEN }}
-          GITHUB_EMAIL: "carlos.caldera@starburstdata.com"
-          GITHUB_USER: "carlos-caldera"
 
   use-pr-number:
     runs-on: ubuntu-latest
