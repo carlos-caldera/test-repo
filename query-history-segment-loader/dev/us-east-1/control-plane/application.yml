@@ -11,22 +11,22 @@ spec:
     project: ego-deploy
     source:
         repoURL: https://github.com/starburstdata/stargate.git
-        targetRevision: 8d3b6724b1395c8f8960b92df5ba5e1354a877b2
+        targetRevision: TEST_SHA
         path: charts/query-history-segment-loader
         helm:
             parameters:
                 - name: imageTag
-                  value: ENC[AES256_GCM,data:eA22BhsAd/oKa5ETRUCCiYrzNbCIac5r,iv:tF+KFqMxtnq6O5FQYMgoSwQ7THDx3RorAjdGEkP1lfQ=,tag:7ykVy+SKneg5FtnqR9bDRw==,type:str]
+                  value: ENC[AES256_GCM,data:fljbPCSBlJw=,iv:6UfgnGa7wQAypDWZ/O9z9DxZ+cgtTyiLEQAJugp89LI=,tag:w4ztWdJ79JsfuRbtjLTq8A==,type:str]
                 - name: localDevelopment
-                  value: ENC[AES256_GCM,data:AbBwIw8=,iv:0Q5OrvmInttL/2kgSj/8GxpuaQbJBbNLIVGIhauNOGU=,tag:EzZRyph29J2rp0WDe37Hjg==,type:str]
+                  value: ENC[AES256_GCM,data:yOxxVus=,iv:qGZwBqxnbR8yrbMyzQgOjXA/A20LYzFFC+ks0DxNHSs=,tag:n9obz7YYeY6ojvNISXuq5Q==,type:str]
                 - name: kafka.bootstrap.servers
-                  value: ENC[AES256_GCM,data:epWWQZEO1zmZ9kGMKO5jesGnAgZrwzWajAO+BLnr1Ki7XYnw4KeOPm5manY=,iv:Jn3NXAEBWNAyU2wD3wD0ZcTjcgayEKQaEM/fFBNPRYY=,tag:Lq1j3lgPmB/M9Z8WhKx/IA==,type:str]
+                  value: ENC[AES256_GCM,data:3Ks1JAuzS6XJUCs51J4LfVX638y1KXImEnKj1wXvPDkltS3cjAMPHM4PleA=,iv:CzhkRGtttNeLisecqlMw+Abocsj09jjKjmUZWU/GHas=,tag:uv2GmLpGxPf7AYJ/71Hb8Q==,type:str]
                 - name: kafka.sasl.username
-                  value: ENC[AES256_GCM,data:32ExTxALo+IKX0khS7Gedw==,iv:CoOviarD07NHX73cDrEywBkQp57lMKqYc71Ilf0y+uc=,tag:fpAOKvbcWkm+s6O/HGi5rw==,type:str]
+                  value: ENC[AES256_GCM,data:MGcgQKId91QdcJUWq76jYA==,iv:tOKZ+YkY30k+Cqv9j+0iV7DcKozKeR2DqH3AVAWL5uk=,tag:NCYebqNHYUayEMJAz5t8Jw==,type:str]
                 - name: kafka.sasl.password
-                  value: ENC[AES256_GCM,data:u615mAHp/v0OsqBIU074ntdIIJS/HcHJ6naoyYIk9KngLRWX/WhcvcRQfMdretUcbDPb+NWG01Gjh20PPg3txg==,iv:VWg9SjAU2ZRnlSN2hTHwu9hGO/qMIqs4y6BFuDe32cU=,tag:EXNimyMVpk6rZaP33mmM1A==,type:str]
+                  value: ENC[AES256_GCM,data:FOtewHHzUpzcdMARMx+6nUpAEqpb7mst8aTmGqPS2An613usBkxIGEjFp4uVYEZkzekuw8iiNT5W7sh2PjHbgw==,iv:lxORpVso7uoyH2oqpeoJNNeW6hMA4vkJ8F1bm6SYXc8=,tag:8c4KDq0Jl9cTM5p3TY/nug==,type:str]
                 - name: segment.apiKey
-                  value: ENC[AES256_GCM,data:gpdtF4g9tbsQgIyrR3KtFkZRjuxURiqYK2arVRbGg3Q=,iv:CnsNORfSxFz42thY9pn0aF4hqxREqLWI7rymW12mfFA=,tag:y4Wb3L8C0+qVejbiH4Kc2g==,type:str]
+                  value: ENC[AES256_GCM,data:mKjxFaK+stfgPp5I53aUIb9WV35b4bPF08rF//G4p9Y=,iv:gLXGfSlDwEPLk/EaPav4sVl/KvKF2RI6e9MRI426uOk=,tag:oS5EjKbLsy4xb1ZXp9FWFQ==,type:str]
             valueFiles:
                 - ./values.yaml
     destination:
@@ -41,15 +41,15 @@ spec:
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:662260526581:key/3f226811-712c-49d1-a5b7-de59223ec1cb
-          created_at: "2022-07-11T18:16:24Z"
-          enc: AQICAHg1QZDATeVp971NNJF8tQQgf93gP0h0ctR/hGudQ4wAMQGXboZOJpsyxm00p3zfDZbyAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMpBB2MHQM7ztL3VrbAgEQgDv1H3YJ+h3oahBdPj1ZBtgrthyoadcPoPOjXG4XnQ0SMKrvFZmcZSACCmyiTO71Zt61WUzh459152OXug==
+          created_at: "2022-07-15T14:34:47Z"
+          enc: AQICAHg1QZDATeVp971NNJF8tQQgf93gP0h0ctR/hGudQ4wAMQGXLHhFWUD0bOED2RlFX62dAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMtB3+HK+0jiuOO8FpAgEQgDs7qfe6u7ot2P/nZI9eAgbyS+QnQMCf0bVdbTfk8dKiKpZ5VD1wZwqPSkoh6erYvAIMhZr4LW0IP0JVkw==
           aws_profile: ""
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-11T18:16:24Z"
-    mac: ENC[AES256_GCM,data:H6Gl2AuoYDwEfvet2CUZUtGLY5EVQLVb6pgHolmuUA/pqgjbJSqnkXi8BWRrZHk0p1Ebllqe5O3O182SHM7lIo35dZwVKAS9JZHO6hLvbpEe39iu0dM4g7fVyz8xUHr9z4zdryrccF8KnUL4XLDY8zU4kli86J+SDlSFAa6Mxs8=,iv:bnTl7UTPbKk1NM8Mzo/+ZE8RqlrKGzARimXICnBa0lQ=,tag:H6Ajj45vWdt4VGaSj3mtAw==,type:str]
+    lastmodified: "2022-07-15T14:34:47Z"
+    mac: ENC[AES256_GCM,data:XLq6npKdpr9b3SLBchy99PRTTCW9QvDWs4EwKzLOnvVHJ4uJRIHrgU5wRj9WG5y1oitejbDfu544af1wIeWHbXANEbeWF1volxsFlKbA6gKmnCSXojWidWctubple4Nhg4cvOhZXw8+DD9GGrrd8ZdKyEBdhCACNkXGR+UJUztQ=,iv:l0CJ96Ag3xB0q1YqRibjA2cjN0vwodP5fjHOxEtTznc=,tag:mp7FzFodXmwh9nFKFzkLIw==,type:str]
     pgp: []
     encrypted_regex: ^(value)$
     version: 3.7.1

@@ -11,34 +11,34 @@ spec:
     project: ego-deploy
     source:
         repoURL: https://github.com/starburstdata/stargate.git
-        targetRevision: 8d3b6724b1395c8f8960b92df5ba5e1354a877b2
+        targetRevision: TEST_SHA
         path: charts/query-history-db-loader
         helm:
             parameters:
                 - name: imageTag
-                  value: ENC[AES256_GCM,data:k8WTuhtaVwYfYiUw8pXh9Zs21eC8LqxF,iv:LHDcHuZNBTxxri4p8Mn9tNyUcQZ+EtbOaOjH6FFQc6E=,tag:8BfJtAwpiKplRfa21UgO/g==,type:str]
+                  value: ENC[AES256_GCM,data:cRkMwDEq1Sc=,iv:amP6SGLu5lERcrJAvaRYO7175uGjwtPuEhkhlFQ+4yo=,tag:1yda04Fqzp8NbT6kUhNKyw==,type:str]
                 - name: stargateDb.baseUrl
-                  value: ENC[AES256_GCM,data:KjVq8DE8vLABN6O+24W6ztbeXLsAG60RK6WNBymn5wFJ4fw2h9sIWZVilv0qNSYp9JetXiFEcLWrX1mg3sNjPmcC5zVj5q+AG6dGZgvEdJDKHg==,iv:PowtpAMF2BYpYSz0rA+Nlw338U8JiGCi21m3QeAuFZ0=,tag:L/feoQtNkFTm0dpUhjMQrQ==,type:str]
+                  value: ENC[AES256_GCM,data:7B4aePjtRRps+YJpW/EMbQ3Nns8vxqNudwk96mWDHJTCMPfd0xw6/WnvhgAlTRhXk8Fs69X70bGaAy1HkhNWHmt6TTT4LRA/wxtD1/lOgr0yEw==,iv:Q5MNbTpPTjaeNgKnpVqhcu55xVEGsDeU7a0W8e3e22E=,tag:bucNvXtYzetv9D2kKcMbpA==,type:str]
                 - name: stargateDb.database
-                  value: ENC[AES256_GCM,data:0xBfdgE7X7H5MA==,iv:/B/1i+jFs3KP2XvjAOKWvhmD0k+ylUigRNRXmkTLmOA=,tag:/xKvwXNCCRvA3hIKheVxZQ==,type:str]
+                  value: ENC[AES256_GCM,data:Z1QqzOVx8AdaqA==,iv:NR92xUYq87krXMNEzZc7ZcZaAEGOTgmDHCpgt1JILLM=,tag:RyUHgkYHk8/LdepGK+to7g==,type:str]
                 - name: stargateDb.username
-                  value: ENC[AES256_GCM,data:ruBQbkwbj/3PSw==,iv:cz63iryl887Ar6kJ2VJsi+7aDseKGEi0hBR58RwoclQ=,tag:mGN9+Qv0dCxWwC1Lz0SjOg==,type:str]
+                  value: ENC[AES256_GCM,data:ElP/8fJZZzdtBQ==,iv:HWd7ZJe9/YSzZEQz39M5QexX6E/Wv/ygIPyYENhV7Nw=,tag:uwR4eyQDXMWDfMKB63pF/A==,type:str]
                 - name: stargateDb.password
-                  value: ENC[AES256_GCM,data:CvxiXpPk2RRngyeUwhCSs1Ufj/e9z8UnH0yltvnj,iv:bpqb6Snoczwd9DIF+fwjJCvSrwIq+3yLlNKlIbw0V/E=,tag:7fwRjJv7rrtgLILF2e2+wg==,type:str]
+                  value: ENC[AES256_GCM,data:q8vgzVlDpgh3Z21D7Fgnvg25dZVKoRmo1e7ltGjD,iv:DsCp6QuGPc2VRQveEnk2no9PALrhIs+Zp2EfS1CSjTM=,tag:bYEJ4Dg0/ZW/3IGLhH4xPg==,type:str]
                 - name: stargateDb.sslMode
-                  value: ENC[AES256_GCM,data:K6Av2OlbcA==,iv:t811irj7Z/lnORsrzNTNEaCdaUz5SFdYilz6gu/tPn4=,tag:s37ssso+2YCuLe+vcq0m9g==,type:str]
+                  value: ENC[AES256_GCM,data:8Qmr1Zau3A==,iv:I6T5hOnFmhDQ/1EmUUa6xfnBhDq4f/MtRYNHWFkHsHI=,tag:wQkHVJNsjcvKT18SgmhMrg==,type:str]
                 - name: imagePullSecret
-                  value: ENC[AES256_GCM,data:7UBZYjij,iv:TrpwBcBYunVtpZ7QBkbhYIiWD6ntOh9HlDl0GlddOYY=,tag:lNs13ijQDvJVJ/HV/w4jpA==,type:str]
+                  value: ENC[AES256_GCM,data:mAl53hmJ,iv:fe3vudRb9iYuumFbPCo+BiQ0ogq3nX6PhF04zlcsDOw=,tag:F1cEWSOi88qj5pUgXqJl0w==,type:str]
                 - name: localDevelopment
-                  value: ENC[AES256_GCM,data:+QiWVyI=,iv:k/rI9g6/F0kbL0vzmkBatenwmJ5yIiCQcl62Esg5ASE=,tag:qF2jI15+1urYc+bbRTPMKA==,type:str]
+                  value: ENC[AES256_GCM,data:ewwnO1U=,iv:sKGNrO5Jy9I6/i23ES6tTyP8U7Cge+LW8KSRqve5xDk=,tag:aIIcoSeazWaUb6uw0vnnDA==,type:str]
                 - name: kafka.bootstrap.servers
-                  value: ENC[AES256_GCM,data:m10rRqxVxxjk/Z+Mso6ICyt2vi6DxQqLE7Y/EoFBjsfuzzA+BY2lqTXBq34=,iv:viqoa92tMKNXTQ240VHn4OSptu06glGik8nWSIyh5c8=,tag:UuD153fqOBuxwdVdAOpeJw==,type:str]
+                  value: ENC[AES256_GCM,data:3DMtQmdWQmA8t3fh9pacVerXCRgEn81g5FtNdi1UO1X0Vmf+sHlCMusLd9M=,iv:C1YS7GUQdIgMkzSdrPIQbdrMjzpl+WR/k8yMj+oPMnU=,tag:bfPeL/qzN8PSo5iMA7SKag==,type:str]
                 - name: kafka.sasl.username
-                  value: ENC[AES256_GCM,data:+3eq1dlsxgV2h53HdHs0kQ==,iv:df4MufGsWxWj5odyiqzj/9tU571yPNARBGNWpktnuC8=,tag:5yWD1H1JkYjxlTIzrZszvw==,type:str]
+                  value: ENC[AES256_GCM,data:OhxLceABEUr7ko+vlPxhkQ==,iv:zb6KMg0fBcCIvYcgJTXeGenJ69mbNi9uTrStNvPjVAg=,tag:FFCmeyjYmGO0OK5o/vy6Vw==,type:str]
                 - name: kafka.sasl.password
-                  value: ENC[AES256_GCM,data:O4yb2E2Z+zLVWFbfrBaqAAt0SyxqAyTYuTya2xUysI3DIXbFPXJRfa0ccwKl1D9vl29qqRsSv1sJzhhZfuL4WA==,iv:c6Y5EXenI0da3wM/qgcongNwI7qOWudAY61xTFXHbLg=,tag:HNor4jlBh09zObW8tv7lzQ==,type:str]
+                  value: ENC[AES256_GCM,data:gAe7jvAkH5S5S9LE/7Nt3wdwwm4CqOuOBvHzD/Do9mQITDLQ0PgHO0GVFdRCWop0QV21b78Tm8oEId9O67W6zA==,iv:arD9BN+9EaNXyrWRY0PAx5cy9dAOwTomWdqn6sTF5OQ=,tag:qzspghHTCLAjmmC52xm30Q==,type:str]
                 - name: dockerRegistrySecretEnabled
-                  value: ENC[AES256_GCM,data:mPw5flc=,iv:HvqDyZASpcVT5ohkYNO3piAJvk2H5INwHzNy8lXsdbY=,tag:WWmDJLgMOKWGbSlodl6hWQ==,type:str]
+                  value: ENC[AES256_GCM,data:lBE3Bnc=,iv:w5JhNt1nPn5tD1qC4KPpJKk1qCvgYf3Et/Uk+gr4B/E=,tag:GwnmCDpNGj/q9xn+Jfxcmw==,type:str]
             valueFiles:
                 - ./values.yaml
     destination:
@@ -53,15 +53,15 @@ spec:
 sops:
     kms:
         - arn: arn:aws:kms:us-east-2:662260526581:key/3f226811-712c-49d1-a5b7-de59223ec1cb
-          created_at: "2022-07-11T18:16:24Z"
-          enc: AQICAHg1QZDATeVp971NNJF8tQQgf93gP0h0ctR/hGudQ4wAMQE8DVZAUT9UOWuM1TQ4sefPAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMmyxc1qDNzYdXZUvbAgEQgDsasvJAzaqXQbOvAbIaiiXoCp8A8aPtb9ONtLUpChWFkKJ/nO+089PfexcLOZDyReJmO3v3SKGe5lLBWA==
+          created_at: "2022-07-15T14:34:46Z"
+          enc: AQICAHg1QZDATeVp971NNJF8tQQgf93gP0h0ctR/hGudQ4wAMQEEMvPGvrQAUr3sIZl5GWr/AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMEcmMphe1s4rDDBXnAgEQgDuUWq+vXJNb37fOy2C5ghYOM3G1YUZrcMbRkEYw0qn/SiDGWzpxOcv/diB3TuF6j6C7gh8yKaKZzO27Gg==
           aws_profile: ""
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2022-07-11T18:16:24Z"
-    mac: ENC[AES256_GCM,data:ZRlx7Z9lutzl9pSIY5Bi2wQ2zpA5b1p2UV1tm0QtQUzKFOELBwDW57kHrwqKrX/8mplejNcHGa8Rp0Ma+hKmLcmZPVOivb7hKXqJKUj2Uk/ZD4Eb49cPKCo0ptB6JgWItOFUUHwyU7X92FGEEyeWgc74a0aeD5mRTwPr/A7j3lc=,iv:RHlHiKDVloDIuApuQir/2Q17u6LkebsR/fdTajijitQ=,tag:AW4pygKPHSerQGpxX59b9A==,type:str]
+    lastmodified: "2022-07-15T14:34:47Z"
+    mac: ENC[AES256_GCM,data:ELLooMFannOhDmTvcioSb5d+UIbBIQaBPHiPat99BpnX6AqflkbQpT8+MIuq5Fu0ssH5VArfXtF1Fsyngh1BK3MEawPuTmIWfGWqfk19jCKgr3MEXd6XaIUC0Q1UjPm4TPKk88sumuZJJvFZb5GgCngDrwL+W1PEV39wFwHvsPA=,iv:7HcdRuFVHnFkdhRhD5Nj/IqnXx9lL5czid3CVBHfTec=,tag:+JO47Y8aGrLQqQFc6HYypQ==,type:str]
     pgp: []
     encrypted_regex: ^(value)$
     version: 3.7.1
