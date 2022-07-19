@@ -1,0 +1,71 @@
+name: Test veracode scan workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  run-scans:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install srcclr
+        run: |
+          curl -sSL https://download.sourceclear.com/install | sh
+
+      # https://github.com/actions/checkout/issues/211#issuecomment-611986243
+      - name: Reset Working Dir Perms (container/non-container issues)
+        run: |
+          if [ -d "${{ github.workspace }}" ]; then
+            sudo chown -R $USER:$USER ${{ github.workspace }}
+          fi
+
+      - uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+
+# Can't test scan repo because need TOKEN with permissions to clone
+#      - uses: actions/setup-java@v1
+#        with:
+#          java-version: 17
+#
+#      - name: Add Maven settings
+#        run: |
+#          mkdir -p ~/.m2
+#          cp .github/settings.xml ~/.m2
+#
+#      - name: Scan repo
+#        run: srcclr scan ${{ github.workspace }}
+#        env:
+#          mavenReleaseUsername: ${{ secrets.MAVEN_RELEASE_SERVER_USERNAME }}
+#          mavenReleasePassword: ${{ secrets.MAVEN_RELEASE_SERVER_PASSWORD }}
+#          mavenSnapshotsUsername: ${{ secrets.MAVEN_SNAPSHOT_SERVER_USERNAME }}
+#          mavenSnapshotsPassword: ${{ secrets.MAVEN_SNAPSHOT_SERVER_PASSWORD }
+#          SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Login to the ECR Docker Registry
+        uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
+        with:
+          registries: 179619298502
+
+      # Ping the AWS ECR for latest image tag
+      # Check the 'verifier-server' image because it is pushed last in the CI workflow
+      - name: Get latest image tag
+        run: |
+          latest_image_tag=$(aws ecr --region "us-east-1" describe-images --repository-name galaxy/verifier-server --filter "tagStatus=TAGGED" --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]')
+          echo "IMAGE_TAG=\"${latest_image_tag}\"" >> $GITHUB_ENV
+
+      - name: Scan Docker images
+        run: |
+          for image in $(cat ${{ github.workspace }}/.github/veracode-images.txt); do
+              srcclr scan --image ${{ env.IMAGE_BASE_URI }}/${image}:${{ env.IMAGE_TAG }}
+          done
+        env:
+          IMAGE_BASE_URI: "179619298502.dkr.ecr.us-east-1.amazonaws.com/galaxy"
+          SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
