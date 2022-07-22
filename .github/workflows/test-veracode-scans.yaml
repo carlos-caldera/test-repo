@@ -1,6 +1,9 @@
 name: Test veracode scan workflow
 on:
   workflow_dispatch:
+    inputs:
+      image-tag:
+        required: false
 
 jobs:
   run-scans:
@@ -54,12 +57,11 @@ jobs:
         with:
           registries: 179619298502
 
-      # Ping the AWS ECR for latest image tag
-      # Check the 'verifier-server' image because it is pushed last in the CI workflow
-      - name: Get latest image tag
-        run: |
-          latest_image_tag=$(aws ecr --region "us-east-1" describe-images --repository-name galaxy/verifier-server --filter "tagStatus=TAGGED" --query 'sort_by(imageDetails,& imagePushedAt)[-1].imageTags[0]')
-          echo "IMAGE_TAG=\"${latest_image_tag}\"" >> $GITHUB_ENV
+      # TODO ping galaxy admin API in prod for current image tag
+
+      - name: Set image tag from input
+        if: github.event.inputs.image-tag != ''
+        run: echo "IMAGE_TAG=${{ github.event.inputs.image-tag }}" >> $GITHUB_ENV
 
       - name: Scan Docker images
         run: |
