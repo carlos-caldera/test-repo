@@ -1,0 +1,13 @@
+name: Test workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  test-sleep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep random amount
+        run: |
+          sleep_time=$(shuf -i 5-15 -n 1)
+          echo "Sleep time: ${sleep_time}"
+          sleep ${sleep_time}
