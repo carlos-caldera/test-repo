@@ -1,0 +1,10 @@
+name: Test foobar
+on:
+  workflow_dispatch:
+
+jobs:
+  test-foobar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo foobar
+        run: echo "foobar"
