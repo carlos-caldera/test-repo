@@ -6,4 +6,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Testing status check"
+      - run: echo "Starting status check"
+
+      - name: Get PR labels
+        id: pr_labels
+        uses: joerick/pr-labels-action@v1.0.6
+
+      - run: echo "Done status check"
