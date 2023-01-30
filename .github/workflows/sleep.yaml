@@ -2,20 +2,47 @@ name: Sleep
 on:
   workflow_dispatch:
     inputs:
-      uuid:
+      env:
         required: true
       sleep-seconds:
         required: true
 
 jobs:
   sleep:
-    name: sleep-${{ inputs.uuid }}
     runs-on: ubuntu-latest
     steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
       - name: Sleep
+        run: sleep ${{ inputs.sleep-seconds }}
+          #if [[ $((sleep_time%2)) -eq 0 ]]; then exit 0; else exit 1; fi
+
+      - name: Determine if promoting to next env
+        id: determine-promotion
         run: |
-          echo "Sleeping for ${{ inputs.sleep-seconds }} seconds"
-          sleep_time=${{ inputs.sleep-seconds }}
-          sleep ${sleep_time}
-          echo "Done sleeping"
-          if [[ $((sleep_time%2)) -eq 0 ]]; then exit 0; else exit 1; fi
+          case '${{ inputs.env }}' in
+            "dev")
+              should_promote="true"
+              target_env="demo"
+            ;;
+            "demo")
+              should_promote="true"
+              target_env="prod"
+            ;;
+            "prod")
+              should_promote="false"
+            ;;
+          esac
+          echo "should_promote=${should_promote}" >> $GITHUB_OUTPUT
+          echo "target_env=${target_env}" >> $GITHUB_OUTPUT
+
+      - name: Echo last step output 
+        run: echo '${{ toJSON(steps.determine-promotion.outputs) }}'
+
+      - name: Run in next env
+        if: steps.determine-promotion.outputs.should_promote == 'true'
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: sleep.yaml
+          inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
