@@ -7,6 +7,10 @@ on:
       sleep-seconds:
         required: true
 
+# Only allow one job per env
+concurrency:
+  group: ${{ github.event.inputs.env }}-${{ github.event.inputs.sleep-seconds }}
+
 jobs:
   sleep:
     runs-on: ubuntu-latest
@@ -40,9 +44,9 @@ jobs:
       - name: Echo last step output 
         run: echo '${{ toJSON(steps.determine-promotion.outputs) }}'
 
-      - name: Run in next env
-        if: steps.determine-promotion.outputs.should_promote == 'true'
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: sleep.yaml
-          inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
+      #- name: Run in next env
+      #  if: steps.determine-promotion.outputs.should_promote == 'true'
+      #  uses: benc-uk/workflow-dispatch@v1
+      #  with:
+      #    workflow: sleep.yaml
+      #    inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
