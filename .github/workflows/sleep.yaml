@@ -4,6 +4,12 @@ on:
     inputs:
       env:
         required: true
+        type: choice
+        description: "Env"
+        options: 
+        - dev
+        - demo
+        - prod
       sleep-seconds:
         required: true
 
