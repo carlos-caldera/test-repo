@@ -29,5 +29,5 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: sleep.yaml
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.ref }} # Doesn't actually work with git SHA :(
           inputs: '{ "env": "${{ inputs.env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
