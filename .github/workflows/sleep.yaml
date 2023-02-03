@@ -39,7 +39,7 @@ jobs:
       - name: Dump strategy context
         run: echo '${{ toJSON(strategy) }}'
 
-      - name: Sleep
+      - name: Sleep in ${{ github.event.inputs.env }} environment
         run: sleep ${{ inputs.sleep-seconds }}
 
       - name: Determine if promoting to next env
