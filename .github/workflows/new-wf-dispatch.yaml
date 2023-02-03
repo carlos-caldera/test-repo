@@ -1,0 +1,37 @@
+name: New workflow dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        required: true
+        type: choice
+        description: "Env"
+        options: 
+        - dev
+        - demo
+        - prod
+      sleep-seconds:
+        required: true
+      flag:
+        required: true
+        type: boolean
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Sleep before dispatching
+        run: sleep 10
+
+      - name: Dispatch sleep workflow to ${{ inputs.env }} environment
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: sleep.yaml
+          ref: ${{ github.event.ref }} # Doesn't actually work with git SHA :(
+          inputs: '{ "env": "${{ inputs.env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
