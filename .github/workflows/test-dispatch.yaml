@@ -12,6 +12,9 @@ on:
         - prod
       sleep-seconds:
         required: true
+      flag:
+        required: true
+        type: boolean
 
 jobs:
   test-dispatch:
