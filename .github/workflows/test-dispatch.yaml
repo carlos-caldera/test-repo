@@ -17,6 +17,11 @@ jobs:
       - name: Dump GitHub context
         run: echo '${{ toJSON(github) }}'
 
+      - name: Dump gith SHA 
+        run: |
+          echo '${{ github.event.sha }}'
+          echo '${{ github.sha }}'
+
       - name: Sleep before dispatching
         run: sleep 20
 
@@ -24,5 +29,5 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: sleep.yaml
-          ref: ${{ github.event.sha }}
+          ref: ${{ github.sha }}
           inputs: '{ "env": "${{ inputs.env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
