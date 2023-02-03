@@ -18,9 +18,23 @@ jobs:
       - name: Echo inputs
         run: echo '${{ toJSON(inputs) }}'
 
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+
       - name: Sleep
         run: sleep ${{ inputs.sleep-seconds }}
-          #if [[ $((sleep_time%2)) -eq 0 ]]; then exit 0; else exit 1; fi
 
       - name: Determine if promoting to next env
         id: determine-promotion

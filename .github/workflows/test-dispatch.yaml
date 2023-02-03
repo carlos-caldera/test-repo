@@ -2,7 +2,7 @@ name: Test dispatch
 on:
   workflow_dispatch:
     inputs:
-      uuid:
+      env:
         required: true
       sleep-seconds:
         required: true
@@ -11,9 +11,18 @@ jobs:
   test-dispatch:
     runs-on: ubuntu-latest
     steps:
-      - id: dispatch-sleep
-        name: Dispatch random sleep workflow
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Sleep before dispatching
+        run: sleep 20
+
+      - name: Dispatch sleep workflow
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: sleep.yaml
-          inputs: '{ "uuid": "${{ inputs.uuid }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
+          ref: ${{ github.event.ref }}
+          inputs: '{ "env": "${{ inputs.env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'

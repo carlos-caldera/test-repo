@@ -1,3 +1,5 @@
+# Test running matrix dispatch workflows, and waiting for all dispatched workflows to complete
+# Note: this isn't working anymore
 name: Test Matrix
 on:
   workflow_dispatch:
