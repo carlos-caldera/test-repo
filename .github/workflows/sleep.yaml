@@ -1,21 +1,10 @@
 name: Sleep
 on:
+  workflow_call:
   workflow_dispatch:
     inputs:
-      env:
-        required: true
-        type: choice
-        description: "Env"
-        options: 
-        - dev
-        - demo
-        - prod
       sleep-seconds:
         required: true
-
-# Only allow one job per env
-concurrency:
-  group: ${{ github.event.inputs.env }}-${{ github.event.inputs.sleep-seconds }}
 
 jobs:
   sleep:
@@ -27,46 +16,5 @@ jobs:
       - name: Dump GitHub context
         run: echo '${{ toJSON(github) }}'
 
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-
-      - name: Sleep in ${{ github.event.inputs.env }} environment
+      - name: Sleep for ${{ inputs.sleep-seconds }} seconds
         run: sleep ${{ inputs.sleep-seconds }}
-
-      - name: Determine if promoting to next env
-        id: determine-promotion
-        run: |
-          case '${{ inputs.env }}' in
-            "dev")
-              should_promote="true"
-              target_env="demo"
-            ;;
-            "demo")
-              should_promote="true"
-              target_env="prod"
-            ;;
-            "prod")
-              should_promote="false"
-            ;;
-          esac
-          echo "should_promote=${should_promote}" >> $GITHUB_OUTPUT
-          echo "target_env=${target_env}" >> $GITHUB_OUTPUT
-
-      - name: Echo last step output 
-        run: echo '${{ toJSON(steps.determine-promotion.outputs) }}'
-
-      #- name: Run in next env
-      #  if: steps.determine-promotion.outputs.should_promote == 'true'
-      #  uses: benc-uk/workflow-dispatch@v1
-      #  with:
-      #    workflow: sleep.yaml
-      #    inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'

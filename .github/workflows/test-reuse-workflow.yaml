@@ -1,0 +1,46 @@
+name: Test Reuse Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      sleep-seconds:
+        required: true
+      flag:
+        required: true
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ inputs.env }}-${{ inputs.flag }}
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+  reuse-sleep-env-matrix:
+    if: ${{ ! inputs.flag }}
+    needs:
+      - init
+    strategy:
+      matrix:
+        environment: [dev, demo, prod]
+    uses: ./.github/workflows/env-sleep.yaml
+    with:
+      env: ${{ matrix.environment }}
+      sleep-seconds: ${{ inputs.sleep-seconds }}
+
+  reuse-sleep-seconds-matrix:
+    if: ${{ inputs.flag }}
+    needs:
+      - init
+    strategy:
+      matrix:
+        seconds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    uses: ./.github/workflows/env-sleep.yaml
+    with:
+      env: dev
+      sleep-seconds: ${{ matrix.seconds }}
