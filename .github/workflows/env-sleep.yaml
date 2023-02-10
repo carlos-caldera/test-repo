@@ -23,7 +23,7 @@ on:
 
 # Only allow one job per env
 concurrency:
-  group: ${{ github.workflow }}-${{ inputs.env }}-${{ inputs.sleep-seconds }}
+  group: env-sleep-${{ github.event.inputs.env || inputs.env }}-${{ github.event.inputs.sleep-seconds || inputs.sleep-seconds }}
 
 jobs:
   env-sleep:
@@ -48,7 +48,13 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
 
       - name: Sleep in ${{ github.event.inputs.env }} environment
-        run: sleep ${{ inputs.sleep-seconds }}
+        run: |
+          sleep ${{ inputs.sleep-seconds }}
+          if [[ $(($RANDOM % 10 )) -gt 7 ]]; then
+              exit 0
+          else
+              exit 1
+          fi
 
       - name: Determine if promoting to next env
         id: determine-promotion
