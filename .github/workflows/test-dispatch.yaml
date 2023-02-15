@@ -29,8 +29,8 @@ jobs:
       - name: Dump GitHub context
         run: echo '${{ toJSON(github) }}'
 
-      - name: Sleep 10 seconds
-        run: sleep 10
+      - name: Sleep for ${{ inputs.sleep-seconds }} seconds
+        run: sleep ${{ inputs.sleep-seconds }}
 
   dispatch:
     runs-on: ubuntu-latest
@@ -45,8 +45,20 @@ jobs:
       - name: Dump GitHub context
         run: echo '${{ toJSON(github) }}'
 
+      - name: Echo if flag and non-zero seconds
+        if: ${{ inputs.flag && inputs.sleep-seconds > 0 }}
+        run: echo "Flag set and non-zero seconds"
+
+      - name: Echo if not flag and zero seconds
+        if: ${{ inputs.sleep-seconds == 0 && ! inputs.flag }}
+        run: echo "Flag not set and 0 seconds"
+
       - name: Sleep before dispatching
-        run: sleep 20
+        run: |
+          sleep ${{ inputs.sleep-seconds }} 
+          if [[ '${{ inputs.flag }}' == 'true' ]]; then
+            echo "FLAG"
+          fi
 
       #- name: Dispatch sleep workflow to ${{ inputs.env }} environment
       #  uses: benc-uk/workflow-dispatch@v1
