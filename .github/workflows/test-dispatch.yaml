@@ -53,6 +53,16 @@ jobs:
         if: ${{ inputs.sleep-seconds == 0 && ! inputs.flag }}
         run: echo "Flag not set and 0 seconds"
 
+      - name: Echo env
+        run: |
+          if [[ '${{ inputs.env }}' == 'dev' ]]; then
+            echo "THIS IS DEV"
+          elif [[ '${{ inputs.env }}' == 'demo' ]]; then
+            echo "THIS IS DEMO"
+          else
+            echo "THIS IS PROD"
+          fi
+
       - name: Sleep before dispatching
         run: |
           sleep ${{ inputs.sleep-seconds }} 
