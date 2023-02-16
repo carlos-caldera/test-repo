@@ -33,6 +33,7 @@ jobs:
     with:
       env: ${{ matrix.environment }}
       sleep-seconds: ${{ inputs.sleep-seconds }}
+      flag: ${{ inputs.flag }}
 
   reuse-sleep-seconds-matrix:
     if: ${{ inputs.flag }}
@@ -46,3 +47,4 @@ jobs:
     with:
       env: dev
       sleep-seconds: ${{ matrix.seconds }}
+      flag: ${{ inputs.flag }}

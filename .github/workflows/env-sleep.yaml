@@ -1,4 +1,8 @@
 name: Env Sleep
+permissions:
+  contents: read
+  id-token: write
+  actions: write
 on:
   workflow_call:
     inputs:
