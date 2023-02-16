@@ -34,4 +34,5 @@ jobs:
     uses: ./.github/workflows/env-sleep.yaml
     with:
       env: ${{ matrix.environment }}
+      flag: ${{ inputs.flag }}
       sleep-seconds: 1
