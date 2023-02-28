@@ -36,6 +36,15 @@ concurrency:
   group: env-sleep-${{ github.event.inputs.env || inputs.env }}-${{ github.event.inputs.sleep-seconds || inputs.sleep-seconds }}
 
 jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Echo init
+        run: echo "init"
+
   env-sleep:
     runs-on: ubuntu-latest
     steps:
@@ -96,3 +105,12 @@ jobs:
       #  with:
       #    workflow: env-sleep.yaml
       #    inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
+
+  post-sleep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Echo post
+        run: echo "post"
