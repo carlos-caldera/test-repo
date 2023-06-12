@@ -1,0 +1,52 @@
+name: Test Matrix Sleep
+on:
+  workflow_dispatch:
+    inputs:
+      sleep-seconds:
+        required: true
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Sleep for ${{ inputs.sleep-seconds }}
+        run: sleep ${{ inputs.sleep-seconds }}
+        
+
+  matrix:
+    needs:
+      - init
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        seconds: [1, 2, 3, 4, 5, 6]
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Maybe fail
+        run: |
+          if [[ $(($RANDOM % 10 )) -gt 3 ]]; then
+              exit 0
+          else
+              exit 1
+          fi
+
+      - name: Sleep for ${{ matrix.seconds }} seconds
+        run: |
+          sleep ${{ matrix.seconds }}
+
+  post-matrix:
+    needs:
+      - matrix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Echo done
+        run: echo 'DONE'
