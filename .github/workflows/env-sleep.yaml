@@ -69,12 +69,10 @@ jobs:
       - name: Sleep in ${{ github.event.inputs.env }} environment
         run: |
           sleep ${{ inputs.sleep-seconds }}
-          if [[ '${{ inputs.flag }}' == 'true' ]]; then
-            if [[ $(($RANDOM % 10 )) -gt 7 ]]; then
-                exit 0
-            else
-                exit 1
-            fi
+          if [[ $(($RANDOM % 10 )) -gt 7 ]]; then
+              exit 0
+          else
+              exit 1
           fi
 
       - name: Determine if promoting to next env
