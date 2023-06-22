@@ -44,9 +44,12 @@ jobs:
     needs:
       - matrix
     runs-on: ubuntu-latest
+    if: always()
     steps:
-      - name: Echo inputs
-        run: echo '${{ toJSON(inputs) }}'
+      - name: All matrix jobs successful
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
 
-      - name: Echo done
-        run: echo 'DONE'
+      - name: Some matrix jobs failed
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
