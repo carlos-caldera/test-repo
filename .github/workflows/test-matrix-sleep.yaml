@@ -1,28 +1,16 @@
-name: Test Matrix Sleep
+name: Test Matrix sleep
 on:
   workflow_dispatch:
     inputs:
-      sleep-seconds:
-        required: true
+  pull_request:
 
 jobs:
-  init:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo inputs
-        run: echo '${{ toJSON(inputs) }}'
-
-      - name: Sleep for ${{ inputs.sleep-seconds }}
-        run: sleep ${{ inputs.sleep-seconds }}
-
-  matrix:
-    needs:
-      - init
+  run-test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        seconds: [1, 2, 3]
+        type: ["foo-type", "bar-type"]
     steps:
       - name: Echo inputs
         run: echo '${{ toJSON(inputs) }}'
@@ -33,28 +21,17 @@ jobs:
       - name: Dump job context
         run: echo '${{ toJSON(job) }}'
 
-      - name: Maybe fail
-        run: |
-          if [[ $(($RANDOM % 10 )) -gt 2 ]]; then
-              exit 0
-          else
-              exit 1
-          fi
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
 
-      - name: Sleep for ${{ matrix.seconds }} seconds
-        run: |
-          sleep ${{ matrix.seconds }}
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
 
-  post-matrix:
-    needs:
-      - matrix
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: All matrix jobs successful
-        if: ${{ !(contains(needs.*.result, 'failure')) }}
-        run: exit 0
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
 
-      - name: Some matrix jobs failed
-        if: ${{ contains(needs.*.result, 'failure') }}
-        run: exit 1
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+
+      - name: Echo branch
+        run: echo ${{ github.head_ref || github.ref_name }}
