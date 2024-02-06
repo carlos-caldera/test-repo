@@ -7,3 +7,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Testing status check"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
