@@ -6,34 +6,14 @@ permissions:
 on:
   workflow_call:
     inputs:
-      env:
-        required: true
-        type: string
-      sleep-seconds:
-        required: true
-        type: string
       flag:
         required: true
         type: boolean
   workflow_dispatch:
     inputs:
-      env:
-        required: true
-        type: choice
-        description: "Env"
-        options:
-        - dev
-        - demo
-        - prod
-      sleep-seconds:
-        required: true
       flag:
         required: true
         type: boolean
-
-# Only allow one job per env
-concurrency:
-  group: env-sleep-${{ github.event.inputs.env || inputs.env }}-${{ github.event.inputs.sleep-seconds || inputs.sleep-seconds }}
 
 jobs:
   init:
@@ -45,67 +25,10 @@ jobs:
       - name: Echo init
         run: echo "init"
 
-  env-sleep:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo inputs
-        run: echo '${{ toJSON(inputs) }}'
-
-      - name: Dump GitHub context
-        run: echo '${{ toJSON(github) }}'
-
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-
-      - name: Sleep in ${{ github.event.inputs.env }} environment
-        run: |
-          sleep ${{ inputs.sleep-seconds }}
-          if [[ $(($RANDOM % 10 )) -gt 7 ]]; then
-              exit 0
-          else
-              exit 1
-          fi
-
-      - name: Determine if promoting to next env
-        id: determine-promotion
-        run: |
-          case '${{ inputs.env }}' in
-            "dev")
-              should_promote="true"
-              target_env="demo"
-            ;;
-            "demo")
-              should_promote="true"
-              target_env="prod"
-            ;;
-            "prod")
-              should_promote="false"
-            ;;
-          esac
-          echo "should_promote=${should_promote}" >> $GITHUB_OUTPUT
-          echo "target_env=${target_env}" >> $GITHUB_OUTPUT
-
-      - name: Echo last step output
-        run: echo '${{ toJSON(steps.determine-promotion.outputs) }}'
-
-      #- name: Run in next env
-      #  if: steps.determine-promotion.outputs.should_promote == 'true'
-      #  uses: benc-uk/workflow-dispatch@v1
-      #  with:
-      #    workflow: env-sleep.yaml
-      #    inputs: '{ "env": "${{ steps.determine-promotion.outputs.target_env }}", "sleep-seconds": "${{ inputs.sleep-seconds }}"}'
-
   post-sleep:
     runs-on: ubuntu-latest
+    needs: init
+    if: inputs.flag
     steps:
       - name: Echo inputs
         run: echo '${{ toJSON(inputs) }}'
