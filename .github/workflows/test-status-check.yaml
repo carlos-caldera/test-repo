@@ -7,3 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Testing status check"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Echo inputs
+        run: echo '${{ toJSON(inputs) }}'
+
+      - name: Dump GitHub context
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Run git diff HEAD
+        run: git diff HEAD^..HEAD
+
+      - name: Run git diff base ref
+        run: git diff origin/${{ github.base_ref }}..origin/${{ github.head_ref }}
