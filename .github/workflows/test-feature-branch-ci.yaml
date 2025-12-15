@@ -1,0 +1,11 @@
+name: Test feature branch CI
+on:
+  push:
+    branches:
+      - feature-branch
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test"
